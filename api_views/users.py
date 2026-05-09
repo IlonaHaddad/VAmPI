@@ -1,6 +1,8 @@
 import re
 import jsonschema
 import jwt
+import html
+import html
 
 from config import db, vuln_app
 from api_views.json_schemas import *
@@ -11,9 +13,9 @@ from app import vuln
 
 def error_message_helper(msg):
     if isinstance(msg, dict):
-        return '{ "status": "fail", "message": "' + msg['error'] + '"}'
+        return '{ "status": "fail", "message": "' + hthtml.escape(ml.escape(msg['error'])) + '"}'
     else:
-        return '{ "status": "fail", "message": "' + msg + '"}'
+        return '{ "status": "fail", "message": "' + html.escape(html.escape)(msg) + '"}'
 
 
 def get_all_users():
