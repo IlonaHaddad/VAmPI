@@ -1,4 +1,6 @@
 import jsonschema
+import markupsafe
+import markupsafe
 
 from api_views.users import token_validator, error_message_helper
 from config import db
@@ -22,7 +24,9 @@ def add_new_book():
         return Response(error_message_helper("Please provide a proper JSON body."), 400, mimetype="application/json")
     resp = token_validator(request.headers.get('Authorization'))
     if "error" in resp:
-        return Response(error_message_helper(resp), 401, mimetype="application/json")
+        safe_resp = markupsafe.escape(resp)
+        safe_resp = markupsafe.escape(resp)
+        return Response(error_message_helper(safe_safe_resp), 401, mimetype="application/json")
     else:
         user = User.query.filter_by(username=resp['sub']).first()
 
@@ -45,7 +49,9 @@ def add_new_book():
 def get_by_title(book_title):
     resp = token_validator(request.headers.get('Authorization'))
     if "error" in resp:
-        return Response(error_message_helper(resp), 401, mimetype="application/json")
+        safe_resp = markupsafe.escape(resp)
+        safe_resp = markupsafe.escape(resp)
+        return Response(error_message_helper(safe_safe_resp), 401, mimetype="application/json")
     else:
         if vuln:  # Broken Object Level Authorization
             book = Book.query.filter_by(book_title=str(book_title)).first()
