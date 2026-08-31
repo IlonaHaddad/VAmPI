@@ -159,9 +159,10 @@ def update_email(username):
                 return Response(error_message_helper("Please Provide a valid email address."), 400,
                                 mimetype="application/json")
         else:
-            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-            if (re.search(regex, request_data.get('email'))):
-                user.email = request_data.get('email')
+            regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+            email = request_data.get('email')
+            if email and re.fullmatch(regex, email):
+                user.email = email
                 db.session.commit()
                 responseObject = {
                     'status': 'success',
